@@ -1,0 +1,5 @@
+{
+    "board": "arduino:avr:uno",
+    "sketch": "draft_code_for_water_flow_measurement.ino",
+    "port": "/dev/ttyACM0"
+}
