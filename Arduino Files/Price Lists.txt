@@ -1,0 +1,5 @@
+Keypad -> 6000/=
+LCD -> 25000/=
+Water Flow Sensor -> 23878/=
+Wires -> 3000/=
+
