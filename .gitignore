@@ -1,1 +1,14 @@
 backend/env
+*.iml
+.gradle
+/EasyWater/local.properties
+/.EasyWater/idea/caches
+/.EasyWater/idea/libraries
+/.EasyWater/idea/modules.xml
+/.EasyWater/idea/workspace.xml
+/.EasyWater/idea/navEditor.xml
+/.EasyWater/idea/assetWizardSettings.xml
+.DS_Store
+/EasyWater/build
+/EasyWater/captures
+.externalNativeBuild
