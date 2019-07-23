@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Easy Water</string>
+    <string name="payment">Make Payment</string>
+    <string name="message">Messages</string>
+    <string name="history">History</string>
+    <string name="help">Help</string>
 </resources>

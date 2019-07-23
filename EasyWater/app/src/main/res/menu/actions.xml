@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/pay"
+        android:icon="@drawable/ic_payment_black_24dp"
+        app:showAsAction="always"
+        android:title="@string/payment"/>
+
+    <item
+        android:id="@+id/usage"
+        android:icon="@drawable/ic_mail_black_24dp"
+        app:showAsAction="always"
+        android:title="@string/message"/>
+
+    <item
+        android:id="@+id/history"
+        android:icon="@drawable/ic_history_black_24dp"
+        app:showAsAction="ifRoom"
+        android:title="@string/history"/>
+
+    <item
+        android:id="@+id/help"
+        android:icon="@drawable/ic_help_outline_black_24dp"
+        app:showAsAction="never"
+        android:title="@string/help"/>
+
+
+
+
+</menu>
