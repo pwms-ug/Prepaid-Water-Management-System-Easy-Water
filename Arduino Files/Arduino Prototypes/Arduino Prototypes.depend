@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1563820419 source:/home/jarvis/Desktop/Embedded System Recess Project/Prepaid-Water-Management-System-PWMS/Arduino Files/Arduino Prototypes/main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
