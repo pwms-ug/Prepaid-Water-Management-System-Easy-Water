@@ -30,8 +30,10 @@ double unit = 0.00;
 double units = 0.00;
 char* code;
 char input[100];
+char* output;
 char key;
 long mySeed;
+int SolenoidPin = 10; 
 char *deviceId = (char*)"AD5DBC";
 
 Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, Rows, Cols);

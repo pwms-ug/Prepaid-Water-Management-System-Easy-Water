@@ -4,6 +4,7 @@ void setup() {
   lcd.init();
   lcd.backlight();
   lcd.setCursor(0, 0);
+  pinMode(SolenoidPin, OUTPUT); 
   Serial.begin(9600);
   delay(2000);
   time_t t = now();
@@ -15,6 +16,7 @@ void setup() {
 }
 
 void loop() {
+  digitalWrite(SolenoidPin, LOW);
   if (act_start > 0) {
     if ((act_start + 10000) <= millis()) {
       lcd.clear();
@@ -71,9 +73,9 @@ void loop() {
         display = true;
       }
     }
-    if (count == 14) {
+    if (count == 16) {
       if (activated) {
-        input[14] = '\0';
+        input[16] = '\0';
         lcd.clear();
         lcd.setCursor(0, 1);
         lcd.print("Verifying..");
@@ -130,32 +132,42 @@ char* tokenize(char* data) {
   return (char*) &*finalString;
 }
 
-void Verify(char* input, float unit) {
-  /*if (strcmp(code, input) == 0) {
-    count = 0;
-    lcd.setCursor(0, 1);
-    lcd.print("Verifying..");
-    units += 10.00;
-    delay(2000);
-    lcd.clear();
-    lcd.setCursor(11, 1);
-    lcd.print(units);
-    lcd.setCursor(0, 0);
-    memset(input, 0, sizeof(input));
-    delay(3000);
-    lcd.clear();
-    display = true;
-    }
-    else {
-    count = 0;
-    lcd.clear();
-    lcd.print("Invalid Code");
-    memset(input, 0, sizeof(input));
-    delay(3000);
-    lcd.clear();
-    display = true;
-    }*/
-    int x;
+char decoded[17];
+char* decrypt(char* token)
+{
+    int len = strlen(token);
+    int len1 = len / 2;
+    int len2 = len - len1;
+    int len3 = len1 / 2;
+    int len4 = len1 - len3;
+    int len5 = len2 / 2;
+    int len6 = len2 - len5;
+    char *s3 = (char*)malloc(len3 + 1);
+    memcpy(s3, token, len3);
+    s3[len3] = '\0';
+    char* s4 = (char*)malloc(len4 + 1);
+    memcpy(s4, token + len3, len4);
+    s4[len4] = '\0';
+    char* s5 = (char*)malloc(len5 + 1);
+    memcpy(s5, token + len3 + len4, len5);
+    s5[len5] = '\0';
+    char* s6 = (char*)malloc(len6 + 1);
+    memcpy(s6, token + len3 + len4 + len5, len6);
+    s6[len6] = '\0';
+    strcat(decoded, s5);
+    strcat(decoded, s4);
+    strcat(decoded, s3);
+    strcat(decoded, s6);
+    free(s4);
+    free(s5);
+    free(s6);
+    free(s3);
+    return (char*) &*decoded;
+}
+
+void Verify(char* codex, float unit) {
+  char* input = decrypt(codex);
+  int x;
   int ptrChar, num = 0;
   char unt[7];
   if (strncmp(input, deviceId, 6) == 0) {
@@ -171,13 +183,9 @@ void Verify(char* input, float unit) {
     unt[4] = '\0';
     ptrChar += 4;
     sscanf(unt, "%d", &x);
-    Serial.println(x);
-    Serial.println(x);
     unit = x/100.00;
     units += unit;
-    Serial.println(unit);
   } else {
-    Serial.println(ptrChar);
     lcd.clear();
     count = 0;
     lcd.print("Unknown SSID");
