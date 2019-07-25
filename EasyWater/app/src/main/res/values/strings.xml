@@ -4,4 +4,13 @@
     <string name="message">Messages</string>
     <string name="history">History</string>
     <string name="help">Help</string>
+    <string name="welcome">Pay Water Bill</string>
+    <string name="metre_number">Metre Number</string>
+    <string name="amount_display">Amount :</string>
+    <string name="amount_text">Enter Amount</string>
+    <string name="make_payment">Make Payment</string>
+    <string name="metre_number_hint">Enter metre number</string>
+    <string name="expected_litre">Expected Units</string>
+    <string name="display_expected_units">Expected Volume</string>
+    <string name="expected_units">Expected Units:</string>
 </resources>

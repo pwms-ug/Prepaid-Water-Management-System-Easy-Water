@@ -10,40 +10,110 @@
     <link rel="stylesheet" href="css/styles.css"/>
     <script>
          const computeLitres = () => {
+           const cost_per_unit  = 3600;
             const inputValue = document.querySelector(".input-amount").value
-            console.log(parseInt(inputValue, 10))
+            console.log(+inputValue)
             if(isNaN(+inputValue)){
                 document.getElementById("amount").classList.add("invalid")
+
             } else {
-                document.getElementById("amount").classList.remove("invalid")
+                document.getElementById("amount").classList.remove("invalid-feed")
+                const litrs = parseFloat(inputValue) / cost_per_unit
+                document.querySelector(".output-amount").value =  Math.round(litrs, 3)
             }
 
+        }
+
+        const confirmPayment = (e) => {
+          e.preventDefault()
+          console.log("Making payment")
         }
     </script>
   </head>
   <body>
       <main>
-          <section class="col-sm-12 p-2 mt-4 pay-in-form mt-3">
+          <section class="col-sm-12 p-2 mt-4 pay-in-form mt-3 input-section">
               <h2 class="bg-info p-3 border-rounded text-light">Pay Water bill</h2>
               <form>
                 <div class="form-group">
+                    <label for="pwd">Metre Number:</label>
+                    <input type="text" class="form-control">
                   <label for="amount">Amount:</label>
                   <input type="text" class="form-control input-amount" id="amount"  onkeyup="computeLitres();">
                 </div>
                 <div class="form-group">
                   <label for="pwd">Expected Volume</label>
-                  <input type="text" class="form-control" id="exp_vol" readonly>
+                  <input type="text" class="form-control output-amount" id="exp_vol" readonly>
                 </div>
-                <button  class="btn btn-outline-primary">Make Payment</button>
+                <button  class="btn btn-outline-primary btn-block" type="button">Make Payment</button>
+                <p class="" id="demo"></p>
               </form>              
+          </section>
+          <section class="col-sm-12 p-2 mt-4 pay-in-form mt-3 lost confirm lead card m-2 p-3">
+            <h1 class="text-success px-2">Payment Successfull!</h1>
+            <hr class="">
+            <div class="">
+              <pre>Meter Number               <p style="display: inline;"  class="meter-number">1800725554</p></pre>
+              <pre>Amount Paid                <p style="display: inline;"  class="amount-paid" >1800725554</p></pre>
+              <pre>Units                      <p style="display: inline;"  class="units-paid" >1800725554</p></pre>
+              <prev style="display: block; align-items: center; color: blue;">TOKEN!</pre>
+              <pre  style="display: block; align-items: Center;" class="token text-success">1800725554</pre>
+              <button  class="btn btn-outline-primary btn-block" type="button">Done</button>
+            </div>
           </section>
       </main>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="js/jquery.js"></script>
-    <script src="js/popper.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/scripts.js"></script>
+    <script>
+        const button = document.querySelector('button');
+        button.addEventListener('click', event => {
+          const amount = document.querySelector(".input-amount").value
+          document.querySelector(".input-section").classList.add('lost')
+          document.querySelector(".confirm").classList.remove('lost')
+          document.querySelector(".confirm").classList.add('message')
+          console.log("utto")
+
+          const display_amount_paid  = document.querySelector(".amount-paid")
+          const display_metre_number  = document.querySelector(".meter-number")
+          const display_amount_units_paid  = document.querySelector(".amount-units-paid")
+          const display_token  = document.querySelector(".token")
+
+
+
+ 
+        });
+
+        const tokenize = (data) => {
+          const len = data.length
+          const len1  = len / 2
+          const len2 = len - len1
+          const len3 = len1 / 2
+          const len4 = len1 - len3;
+          const len5 = len2 / 2
+          const len6 = len2 - len5
+
+          let s3 = 0
+        }
+
+
+
+
+
+      </script>
+      <style>
+        .lost {
+          display: none;
+        }
+        .message {
+          display: block;
+        }
+
+
+      </style>
+      
   </body>
 </html>
