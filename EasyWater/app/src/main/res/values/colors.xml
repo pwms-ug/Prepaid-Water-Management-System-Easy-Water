@@ -3,4 +3,7 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="water_blue">#0000FF</color>
+    <color name="input_white">#FFFFFF</color>
+    <color name="input_border_black">#000000</color>
 </resources>
