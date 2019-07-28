@@ -13,7 +13,6 @@ _Bool usedToken(char* token) {
 //  _Bool found = false;
   int i;
 //  Serial.println(token);
-    printf("\n\nInput: %.2f", 4000.00/3512);
   for(i=0;i<25;i++) {
   if(UsedTokens[i] == 0){
     //UsedTokens[i] += (token);
@@ -47,6 +46,13 @@ int main()
     usedToken(codes);
     return 0;
 }
+/* Javascript Code */
+//function splitString(str) {
+//    var middle = Math.ceil(str.length / 2);
+//    var s1 = str.slice(0, middle);
+//    var s2 = str.slice(middle);
+//    return s1 + " " + s2;
+//};
 
 char finalString[17], decoded[17];
 char* tokenize(char* data)
@@ -71,9 +77,9 @@ char* tokenize(char* data)
     memcpy(s6, data + len3 + len4 + len5, len6);
     s6[len6] = '\0';
     strcat(finalString, s5);
-    strcat(finalString, s4);
     strcat(finalString, s3);
     strcat(finalString, s6);
+    strcat(finalString, s4);
     free(s4);
     free(s5);
     free(s6);

@@ -58,7 +58,7 @@ public class Tokenizer {
         final int METER_NUMBER =  1800; //A2
         final int PURCHASED_UNITS = 2378; //B1
 
-        final String token = 
+        final String token;
 
 
         return "Hello World";
