@@ -8,32 +8,20 @@ double unit = 0.00;
 double units = 0.00;
 int false = 0, true = 1;
 char* code;
-char UsedTokens[25][17]={};
+char UsedTokens[25][17]={"1280BC00AD5DA59A"};
 _Bool usedToken(char* token) {
-//  _Bool found = false;
-  int i;
-//  Serial.println(token);
+  int i,j;
   for(i=0;i<25;i++) {
+    for(j=0;j<17;j++) printf("\n\n Token[%d][%d]: %c", i,j,UsedTokens[i][j]);
+    getchar();
   if(UsedTokens[i] == 0){
-    //UsedTokens[i] += (token);
   }
-//    Serial.print("Token ");
-//    Serial.print(i);
-//    Serial.print(": ");
-//    Serial.println(UsedTokens[i]);
     if(strcmp(UsedTokens[i], token) == 0) {
+    for(j=0;j<17;j++) printf("\n\n Token[%d][%d]: %c", i,j,UsedTokens[i][j]);
     printf("\n\nToken %d: %s", i, UsedTokens[i]);
-//      lcd.print("Used token");
-//      found = true;
       return true;
-//      delay(5000);
     }
   }
-//  if(found){
-////    count=0;
-//    memset(input, 0, sizeof(input));
-//    display = true;
-//  }
   return false;
 }
 int main()
@@ -43,7 +31,12 @@ int main()
     printf("Code: %s", code);
     printf("\nToken: %s", codes);
     printf("\nDecrypted: %s", decrypt(codes));
-    usedToken(codes);
+    for(int i=0; i<25; i++) {
+        for(int j = 0; j<17;j++){
+            UsedTokens[i][j] = '\0';
+        }
+    }
+    usedToken("1280BC00AD5DA59A");
     return 0;
 }
 /* Javascript Code */

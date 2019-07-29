@@ -1,4 +1,4 @@
-int SolenoidPin = 10;
+int SolenoidPin = 13;
 
 void setup() {
   Serial.begin(9600);

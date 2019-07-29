@@ -33,9 +33,16 @@ char* output;
 char key;
 long mySeed;
 int flowsensor = 2;
-int SolenoidPin = 13; 
-char *deviceId = (char*)"AD5DBC";
-char UsedTokens[25][17]={};
+int SolenoidPin = 14; 
+char *deviceId = (char*)"AD5DBC"; // This deviceId varies with every device produced
+char *meterNum = (char*)"15404656478716"; // This meterNum also varies per device produced
+int UsedToken_index;
+char UsedTokens[40][16];
+
+volatile int flow_frequency; // Measures flow sensor pulses
+unsigned int l_hour; // Calculated litres/hour
+unsigned long currentTime;
+unsigned long cloopTime;
 
 Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, Rows, Cols);
 
