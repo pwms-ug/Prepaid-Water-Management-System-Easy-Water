@@ -54,7 +54,9 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/meter_number" />
+        app:layout_constraintTop_toBottomOf="@+id/meter_number"
+        android:importantForAutofill="no"
+        android:inputType="numberDecimal" tools:targetApi="o"/>
 
     <TextView
         android:id="@+id/amount"
@@ -87,7 +89,9 @@
         android:layout_marginRight="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/amount" />
+        app:layout_constraintTop_toTopOf="@+id/amount"
+        android:importantForAutofill="no"
+        />
 
     <TextView
         android:id="@+id/expected_units"
@@ -104,41 +108,47 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText" />
 
-    <EditText
-        android:inputType="number"
+    <TextView
         android:id="@+id/display_expected_units"
         android:layout_width="0dp"
-        android:background="@drawable/input_fields"
         android:layout_height="wrap_content"
-        android:hint="@string/display_expected_units"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/input_fields"
+        android:hint="@string/display_expected_units"
+        android:importantForAutofill="no"
         android:padding="10dp"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/make_payment"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/expected_units" />
+        app:layout_constraintTop_toBottomOf="@+id/expected_units"
+        app:layout_constraintVertical_bias="0.0" />
 
 
     <Button
         android:id="@+id/make_payment"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:padding="10dp"
-        android:textColor="#F6F8FA"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginEnd="20dp"
-        android:background="@drawable/styles_button"
         android:layout_marginRight="20dp"
+        android:layout_marginBottom="256dp"
+        android:background="@drawable/styles_button"
+        android:padding="10dp"
         android:text="@string/make_payment"
+        android:textColor="#F6F8FA"
         android:textSize="30sp"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
 
 
