@@ -4,26 +4,19 @@ void setup() {
   lcd.init();
   lcd.backlight();
   lcd.setCursor(0, 0);
-  pinMode(SolenoidPin, OUTPUT); 
+  pinMode(SolenoidPin, OUTPUT);
   Serial.begin(9600);
-  int i;
-  for(i=0;i<25;i++){
-      if(UsedTokens[i] == 0){
-        Serial.print("UsedTokenIndex ");
-        Serial.print(i);
-        Serial.println(" is empty");
-      }
-    }
-//  char* code = (char*)"AD5DBC065123456D";
+  Serial.println(UsedTokens[0][17]);
+  //  char* code = (char*)"AD5DBC065123456D";
 }
 
 void loop() {
-  if(units == 0.0){
-    if(!closed){
+  if (units == 0.0) {
+    if (!closed) {
       closeValve();
     }
   } else {
-    if(closed){
+    if (closed) {
       openValve();
     }
   }
@@ -32,7 +25,7 @@ void loop() {
       lcd.clear();
       act_start = 0;
       memset(input, 0, sizeof(input));
-      count=0;
+      count = 0;
       display = true;
     }
   }
@@ -77,6 +70,13 @@ void loop() {
           memset(input, 0, sizeof(input));
         }
       } else {
+        if (strcmp(input, "100") == 0) {
+          count = 0;
+          display = true;
+          lcd.setCursor(0, 0);
+          lcd.print(meterNum);
+          delay(6000);
+        }
         count = 0;
         display = true;
       }
@@ -87,17 +87,10 @@ void loop() {
         lcd.clear();
         lcd.setCursor(0, 1);
         lcd.print("Verifying..");
-        if(usedToken(input)){
-          lcd.setCursor(0,0);
-          lcd.print("Used token");
-          count=0;
-          memset(input, 0, sizeof(input));
-          display = true;
-          delay(1000);
+        if (usedToken(input)) {
+          lcd.setCursor(0, 0);
         } else {
-          Verify(input, unit);
-          count = 0;
-          display = true;
+          Verify(input);
         }
       } else {
         lcd.clear();
@@ -115,43 +108,50 @@ void loop() {
     lcd.setCursor(11, 1);
     lcd.print(units);
   }
+
 }
 
 char decoded[17];
-char* decrypt(char* token)
-{
-    int len = strlen(token),len1, len2, len3, len4, len5, len6;
-    char *s3, *s4, *s5, *s6;
-    len1 = len / 2;
-    len2 = len - len1;
-    len3 = len1 / 2;
-    len4 = len1 - len3;
-    len5 = len2 / 2;
-    len6 = len2 - len5;
-    s3 = (char*)malloc(len3 + 1);
-    memcpy(s3, token, len3);
-    s3[len3] = '\0';
-    s4 = (char*)malloc(len4 + 1);
-    memcpy(s4, token + len3, len4);
-    s4[len4] = '\0';
-    s5 = (char*)malloc(len5 + 1);
-    memcpy(s5, token + len3 + len4, len5);
-    s5[len5] = '\0';
-    s6 = (char*)malloc(len6 + 1);
-    memcpy(s6, token + len3 + len4 + len5, len6);
-    s6[len6] = '\0';
-    strcat(decoded, s5);
-    strcat(decoded, s4);
-    strcat(decoded, s3);
-    strcat(decoded, s6);
-    free(s4);
-    free(s5);
-    free(s6);
-    free(s3);
-    return (char*) &*decoded;
+char* decrypt(char* token) {
+  int len = strlen(token), len1, len2, len3, len4, len5, len6;
+  char *s3, *s4, *s5, *s6;
+  len1 = len / 2;
+  len2 = len - len1;
+  len3 = len1 / 2;
+  len4 = len1 - len3;
+  len5 = len2 / 2;
+  len6 = len2 - len5;
+  s3 = (char*)malloc(len3 + 1);
+  memcpy(s3, token, len3);
+  s3[len3] = '\0';
+  s4 = (char*)malloc(len4 + 1);
+  memcpy(s4, token + len3, len4);
+  s4[len4] = '\0';
+  s5 = (char*)malloc(len5 + 1);
+  memcpy(s5, token + len3 + len4, len5);
+  s5[len5] = '\0';
+  s6 = (char*)malloc(len6 + 1);
+  memcpy(s6, token + len3 + len4 + len5, len6);
+  s6[len6] = '\0';
+  strcat(decoded, s5);
+  strcat(decoded, s4);
+  strcat(decoded, s3);
+  strcat(decoded, s6);
+  free(s4);
+  free(s5);
+  free(s6);
+  free(s3);
+  return (char*) &*decoded;
 }
 
-void Verify(char* codex, float unit) {
+void Verify(char* codex) {
+  int tokenLen = strlen(codex);
+  if (UsedToken_index < 40) {
+    for (int i = 0; i < tokenLen; i++) {
+      UsedTokens[UsedToken_index][i] = codex[i];
+    }
+    UsedToken_index++;
+  }
   char* input = decrypt(codex);
   int x;
   int ptrChar, num = 0;
@@ -170,7 +170,7 @@ void Verify(char* codex, float unit) {
     num = 0;
     unt[5] = '\0';
     int ver = 5;
-    while(ver != 0) {
+    while (ver != 0) {
       verify[num] = input[ptrChar];
       ptrChar++;
       num++;
@@ -179,7 +179,7 @@ void Verify(char* codex, float unit) {
     verify[5] = '\0';
     int i = 0;
     sscanf(unt, "%d", &x);
-    unit = x/100.00;
+    unit = x / 100.00;
     units += unit;
   } else {
     lcd.clear();
@@ -195,18 +195,18 @@ boolean usedToken(char* token) {
   boolean found = false;
   int i;
   Serial.println(token);
-  for(i=0;i<25;i++) {
-    if(strcmp(UsedTokens[i], token) == 0) {
+  for (i = 0; i < 25; i++) {
+    if (strcmp(UsedTokens[i], token) == 0) {
       lcd.clear();
-      lcd.setCursor(0,0);
+      lcd.setCursor(0, 0);
       lcd.print("Used token");
       found = true;
       return true;
       delay(5000);
     }
   }
-  if(found){
-    count=0;
+  if (found) {
+    count = 0;
     memset(input, 0, sizeof(input));
     display = true;
   }
@@ -215,8 +215,11 @@ boolean usedToken(char* token) {
 
 void closeValve() {
   digitalWrite(SolenoidPin, LOW);
+  Serial.println("Closed");
 }
 
 void openValve() {
   digitalWrite(SolenoidPin, HIGH);
+  closed = false;
+  Serial.println("Opened");
 }

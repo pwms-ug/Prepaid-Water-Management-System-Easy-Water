@@ -1,0 +1,3 @@
+[submodule "Fuka-App"]
+	path = Fuka-App
+	url = https://github.com/juniorkibirige/Fuka-App.git
